@@ -1,0 +1,55 @@
+{
+  "name": "@salesflare/optimus",
+  "version": "0.0.1",
+  "description": "Transformer for Salesflare filter rules",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint --fix .",
+    "test": "npm run lint && lab -a code -t 100",
+    "build": "rimraf dist && NODE_ENV=dev rollup --config",
+    "build-production": "rimraf dist && NODE_ENV=production rollup --config",
+    "prepare": "npm run build-production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Salesflare/optimus.git"
+  },
+  "keywords": [
+    "salesflare",
+    "transformer",
+    "api",
+    "filter"
+  ],
+  "author": "Salesflare team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Salesflare/optimus/issues"
+  },
+  "homepage": "https://github.com/Salesflare/optimus#readme",
+  "engines": {
+    "node": ">8.0.0"
+  },
+  "browserslist": "last 2 versions",
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "code": "^5.2.4",
+    "eslint-config-salesflare": "^1.1.1",
+    "eslint-plugin-dependencies": "^2.4.0",
+    "eslint-plugin-node": "^8.0.1",
+    "ghooks": "^2.0.4",
+    "hapi": "^16.7.0",
+    "lab": "^18.0.1",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.1.0",
+    "rollup-plugin-babel": "^4.3.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-uglify": "^6.0.0"
+  },
+  "files": ["lib", "dist"]
+}
