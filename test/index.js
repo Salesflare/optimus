@@ -86,25 +86,4 @@ describe('hapi plugin', () => {
         expect(server.methods.optimus.transform(oldFilter)).to.equal(newFilter);
         expect(server.methods.optimus.transform()).to.equal(undefined);
     });
-
-    it('doesn\'t modify the original filter', () => {
-
-        const old = {
-            rules: [
-                {
-                    id: 'person-contact.my-contacts',
-                    entity: 'person',
-                    input: 'binaryradio',
-                    label: 'My contacts',
-                    operator: 'true',
-                    type: 'boolean',
-                    value: ['']
-                }
-            ]
-        };
-
-        Optimus.transform(old);
-
-        expect(old.rules[0].id).to.equal('person-contact.my-contacts');
-    });
 });

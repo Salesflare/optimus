@@ -79,6 +79,27 @@ describe('transformer', () => {
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
     });
 
+    it('doesn\'t modify the original filter', () => {
+
+        const old = {
+            rules: [
+                {
+                    id: 'person-contact.my-contacts',
+                    entity: 'person',
+                    input: 'binaryradio',
+                    label: 'My contacts',
+                    operator: 'true',
+                    type: 'boolean',
+                    value: ['']
+                }
+            ]
+        };
+
+        Transformer.transform(old);
+
+        expect(old.rules[0].id).to.equal('person-contact.my-contacts');
+    });
+
     it('transforms invalid operators to better operator-value combo', () => {
 
         const oldFilter = {
