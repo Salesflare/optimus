@@ -2,7 +2,7 @@
 
 const Commonjs  = require('rollup-plugin-commonjs');
 const Babel  = require('rollup-plugin-babel');
-const { uglify }  = require('rollup-plugin-uglify');
+const { terser }  = require('rollup-plugin-terser');
 
 const env = process.env.NODE_ENV;
 const config = {
@@ -29,7 +29,7 @@ const config = {
 
 if (env === 'production') {
     config.plugins.push(
-        uglify({
+        terser({
             warnings: true,
             sourcemap: true
         })

@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Salesflare/optimus#readme",
   "engines": {
-    "node": ">8.0.0"
+    "node": ">8.3.0"
   },
   "browserslist": "last 2 versions",
   "config": {
@@ -49,10 +49,11 @@
     "rollup": "^1.1.0",
     "rollup-plugin-babel": "^4.3.0",
     "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-uglify": "^6.0.0"
+    "rollup-plugin-terser": "^4.0.2"
   },
   "files": [
     "lib",
     "dist"
-  ]
+  ],
+  "dependencies": {}
 }
