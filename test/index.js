@@ -80,10 +80,10 @@ describe('hapi plugin', () => {
             ]
         };
 
-        expect(server.methods.optimusTransform).to.be.a.function();
+        expect(server.methods.optimus.transform).to.be.a.function();
         expect(Optimus.transform).to.be.a.function();
 
-        expect(server.methods.optimusTransform(oldFilter)).to.equal(newFilter);
-        expect(server.methods.optimusTransform()).to.equal(undefined);
+        expect(server.methods.optimus.transform(oldFilter)).to.equal(newFilter);
+        expect(server.methods.optimus.transform()).to.equal(undefined);
     });
 });

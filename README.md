@@ -14,7 +14,7 @@ const server = new Hapi.Server();
 await server.register(Optimus);
 
 const transformedFilter = Optimus.transform(oldFilter); // plain
-const transformedFilter = server.methods.optimusTransform(oldFilter); // hapi server method
+const transformedFilter = server.methods.optimus.transform(oldFilter); // hapi server method
 ```
 
 ```html
