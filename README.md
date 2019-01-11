@@ -1,5 +1,7 @@
 # Optimus
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Salesflare/optimus.svg)](https://greenkeeper.io/)
+
 Transformer for Salesflare filter rules.
 
 Available as a plain transform function, hapi 16 plugin (which exposes a server method) or client transformer.
