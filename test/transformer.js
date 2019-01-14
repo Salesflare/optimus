@@ -168,4 +168,121 @@ describe('transformer', () => {
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
     });
+
+    it('transforms boolean operator to operator/value combo', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'is_empty'
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'is_not_empty'
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'is_null'
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'is_not_null'
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'true'
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'false'
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'equal',
+                    value: ['']
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'not_equal',
+                    value: ['']
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'equal',
+                    value: ['null']
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'not_equal',
+                    value: ['null']
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'equal',
+                    value: ['true']
+                },
+                {
+                    id: 'opportunity.closed',
+                    label: 'Closed',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    entity: 'opportunity',
+                    operator: 'equal',
+                    value: ['false']
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    });
 });
