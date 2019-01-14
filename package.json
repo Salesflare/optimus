@@ -8,7 +8,7 @@
     "test": "lab -a code -t 100",
     "build": "rimraf dist && NODE_ENV=dev rollup --config",
     "build-production": "rimraf dist && NODE_ENV=production rollup --config",
-    "preversion": "npm run build-production"
+    "preversion": "npm run build-production && git add dist"
   },
   "repository": {
     "type": "git",
