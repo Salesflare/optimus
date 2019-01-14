@@ -97,7 +97,7 @@ describe('transformer', () => {
 
         Transformer.transform(old);
 
-        expect(old.rules[0].id).to.equal('person-contact.my-contacts');
+        return expect(old.rules[0].id).to.equal('person-contact.my-contacts');
     });
 
     it('transforms invalid operators to better operator-value combo', () => {

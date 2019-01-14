@@ -84,7 +84,7 @@ describe('hapi plugin', () => {
         expect(Optimus.transform).to.be.a.function();
 
         expect(server.methods.optimus.transform(oldFilter)).to.equal(newFilter);
-        expect(server.methods.optimus.transform()).to.equal(undefined);
+        return expect(server.methods.optimus.transform()).to.equal(undefined);
     });
 
     it('works as a pre function', async () => {
@@ -106,7 +106,7 @@ describe('hapi plugin', () => {
             }
         });
 
-        await server.start();
+        await server.initialize();
 
         const oldFilter = {
             condition: 'AND',
@@ -144,6 +144,35 @@ describe('hapi plugin', () => {
             ]
         };
 
-        expect(res.result).to.equal(newFilter);
+        return expect(res.result).to.equal(newFilter);
+    });
+
+    it('works as a pre function wen nothing is passed', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformInPlace(query.q)']
+            },
+            handler: (request, reply) => {
+
+                return reply();
+            }
+        });
+
+        await server.initialize();
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE'
+        });
+
+        return expect(res.statusCode).to.equal(200);
     });
 });
