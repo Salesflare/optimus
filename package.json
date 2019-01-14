@@ -32,7 +32,7 @@
   "browserslist": "last 2 versions",
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint && npm t"
     }
   },
   "devDependencies": {
