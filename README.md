@@ -17,6 +17,14 @@ await server.register(Optimus);
 
 const transformedFilter = Optimus.transform(oldFilter); // plain
 const transformedFilter = server.methods.optimus.transform(oldFilter); // hapi server method
+
+// in a route config
+{
+    ...,
+    // this changes the rules in request.payload to the transformed rules
+    pre: ['optimus.transformInPlace(payload)'],
+    ...
+}
 ```
 
 ```html

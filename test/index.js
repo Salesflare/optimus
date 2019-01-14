@@ -86,4 +86,64 @@ describe('hapi plugin', () => {
         expect(server.methods.optimus.transform(oldFilter)).to.equal(newFilter);
         expect(server.methods.optimus.transform()).to.equal(undefined);
     });
+
+    it('works as a pre function', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformInPlace(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply(request.payload);
+            }
+        });
+
+        await server.start();
+
+        const oldFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-customer.customers',
+                    entity: 'person',
+                    input: 'binaryradio',
+                    label: 'My contacts',
+                    operator: 'true',
+                    type: 'boolean',
+                    value: ['']
+                }
+            ]
+        };
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: oldFilter
+        });
+
+        const newFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-type.id',
+                    entity: 'person',
+                    input: 'multiselect',
+                    label: 'Type',
+                    operator: 'in',
+                    type: 'integer',
+                    value: [2]
+                }
+            ]
+        };
+
+        expect(res.result).to.equal(newFilter);
+    });
 });
