@@ -43,7 +43,7 @@
     "eslint-plugin-dependencies": "^2.4.0",
     "eslint-plugin-node": "^8.0.1",
     "ghooks": "^2.0.4",
-    "hapi": "^16.7.0",
+    "hapi": "^17.8.1",
     "lab": "^18.0.1",
     "rimraf": "^2.6.3",
     "rollup": "^1.1.0",
