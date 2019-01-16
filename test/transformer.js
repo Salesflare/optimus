@@ -233,7 +233,7 @@ describe('transformer', () => {
                     input: 'binaryradio',
                     entity: 'opportunity',
                     operator: 'equal',
-                    value: ['']
+                    value: ['null']
                 },
                 {
                     id: 'opportunity.closed',
@@ -242,7 +242,7 @@ describe('transformer', () => {
                     input: 'binaryradio',
                     entity: 'opportunity',
                     operator: 'not_equal',
-                    value: ['']
+                    value: ['null']
                 },
                 {
                     id: 'opportunity.closed',
