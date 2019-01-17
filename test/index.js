@@ -20,6 +20,7 @@ describe('hapi plugin', () => {
             rules: [
                 {
                     id: 'person-tag.id',
+                    query_builder_id: 'person-tag.id',
                     label: 'Tag',
                     type: 'string',
                     input: 'tags',
@@ -29,6 +30,7 @@ describe('hapi plugin', () => {
                 },
                 {
                     id: 'person-customer.customers',
+                    query_builder_id: 'person-customer.customers',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'Customers',
@@ -38,6 +40,7 @@ describe('hapi plugin', () => {
                 },
                 {
                     id: 'person-contact.my-contacts',
+                    query_builder_id: 'person-contact.my-contacts',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'My contacts',
@@ -52,6 +55,7 @@ describe('hapi plugin', () => {
             rules: [
                 {
                     id: 'person-tag.id',
+                    query_builder_id: 'person-tag.id',
                     label: 'Tag',
                     type: 'string',
                     input: 'tags',
@@ -61,6 +65,7 @@ describe('hapi plugin', () => {
                 },
                 {
                     id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
                     entity: 'person',
                     input: 'multiselect',
                     label: 'Type',
@@ -70,6 +75,7 @@ describe('hapi plugin', () => {
                 },
                 {
                     id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
                     entity: 'person',
                     input: 'multiselect',
                     label: 'Type',
@@ -113,6 +119,7 @@ describe('hapi plugin', () => {
             rules: [
                 {
                     id: 'person-customer.customers',
+                    query_builder_id: 'person-customer.customers',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'My contacts',
@@ -134,6 +141,7 @@ describe('hapi plugin', () => {
             rules: [
                 {
                     id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
                     entity: 'person',
                     input: 'multiselect',
                     label: 'Type',
