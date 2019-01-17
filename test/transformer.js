@@ -285,4 +285,340 @@ describe('transformer', () => {
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
     });
+
+    it('transforms value objects to an array for the between/not_between operators', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [{
+                        value1: 1,
+                        value2: 2
+                    }]
+                },
+                {
+                    id: 'count account_contact',
+                    label: '# contacts',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: [{
+                        value1: 1,
+                        value2: 2
+                    }]
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [{
+                        value1: null,
+                        value2: 2
+                    }]
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: [{
+                        value1: 1,
+                        value2: undefined
+                    }]
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: [{
+                        value1: undefined,
+                        value2: 1
+                    }]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count account_contact',
+                    label: '# contacts',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: []
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: []
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: []
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    });
+
+    it('transforms value properties to an array for the between/not_between operators', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value1: 1,
+                    value2: 2
+                },
+                {
+                    id: 'count account_contact',
+                    label: '# contacts',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value1: 1,
+                    value2: 2
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value1: null,
+                    value2: 2
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value1: 2,
+                    value2: null
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value1: 1,
+                    value2: undefined
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value1: undefined,
+                    value2: 1
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count account_contact',
+                    label: '# contacts',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: []
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: []
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: []
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: []
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    });
+
+    it('doesn\'t transform values for the between/not_between operators when the values are already correct', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count account_contact',
+                    label: '# contacts',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: []
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: []
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count account_contact',
+                    label: '# contacts',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'count opportunity',
+                    label: '# opportunities',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: []
+                },
+                {
+                    id: 'count task',
+                    label: '# tasks',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'not_between',
+                    value: []
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    });
 });
