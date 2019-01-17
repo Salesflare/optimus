@@ -677,7 +677,7 @@ describe('transformer', () => {
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
     });
 
-    it('adds a query_builder_id when not present', () => {
+    it('adds a query_builder_id when not present for older formats', () => {
 
         const oldFilter = {
             rules: [
@@ -691,13 +691,9 @@ describe('transformer', () => {
                     value: [1, 2]
                 },
                 {
-                    id: 'count account_contact',
-                    label: '# contacts',
-                    type: 'integer',
-                    input: 'integer',
-                    entity: 'account',
-                    operator: 'not_between',
-                    value: [1, 2]
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
                 }
             ]
         };
@@ -715,14 +711,9 @@ describe('transformer', () => {
                     value: [1, 2]
                 },
                 {
-                    id: 'count account_contact',
-                    query_builder_id: 'count account_contact',
-                    label: '# contacts',
-                    type: 'integer',
-                    input: 'integer',
-                    entity: 'account',
-                    operator: 'not_between',
-                    value: [1, 2]
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
                 }
             ]
         };
