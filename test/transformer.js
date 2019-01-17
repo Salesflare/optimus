@@ -720,4 +720,49 @@ describe('transformer', () => {
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
     });
+
+    it('fixes custom ids with spaces', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'custom.Name thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'count custom.Name thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'custom.name_thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'count custom.name_thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    });
 });
