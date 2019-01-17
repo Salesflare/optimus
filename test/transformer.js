@@ -739,6 +739,12 @@ describe('transformer', () => {
                     id: 'account.name',
                     operator: 'equal',
                     value: ['salesflare']
+                },
+                {
+                    id: 'custom.Name thing',
+                    entity: 'account',
+                    operator: 'equal',
+                    value: ['salesflare']
                 }
             ]
         };
@@ -757,6 +763,13 @@ describe('transformer', () => {
                 },
                 {
                     id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'custom.name_thing',
+                    query_builder_id: 'custom.name_thing',
+                    entity: 'account',
                     operator: 'equal',
                     value: ['salesflare']
                 }
