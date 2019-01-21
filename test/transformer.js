@@ -621,4 +621,261 @@ describe('transformer', () => {
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
     });
+
+    it('transforms old person-campaign rules to use the campaign entity', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'campaign.name',
+                    label: 'Name',
+                    type: 'string',
+                    input: 'text',
+                    display_entity: 'Campaign',
+                    entity: 'person'
+                },
+                {
+                    id: 'campaign.id',
+                    label: 'Is part of',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'person'
+                },
+                {
+                    id: 'campaign-email.sent_status',
+                    label: 'Received',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'person'
+                },
+                {
+                    id: 'email_open.id',
+                    label: 'Opened',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'person'
+                },
+                {
+                    id: 'interactiongroup.id',
+                    label: 'Clicked',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'person'
+                },
+                {
+                    id: 'campaign.creator',
+                    label: 'Created by',
+                    type: 'integer',
+                    input: 'autocomplete',
+                    display_entity: 'Campaign',
+                    entity: 'person'
+                },
+                {
+                    id: 'campaign.type',
+                    label: 'Type',
+                    type: 'string',
+                    input: 'multiselect',
+                    display_entity: 'Campaign',
+                    entity: 'person'
+
+                },
+                {
+                    id: 'campaign.status',
+                    label: 'Status',
+                    type: 'string',
+                    input: 'multiselect',
+                    entity: 'person',
+                    display_entity: 'Campaign'
+                },
+                {
+                    id: 'person-address.state_region',
+                    label: 'State/Region',
+                    type: 'string',
+                    input: 'text',
+                    entity: 'person'
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'campaign.name',
+                    label: 'Name',
+                    type: 'string',
+                    input: 'text',
+                    display_entity: 'Campaign',
+                    entity: 'campaign'
+                },
+                {
+                    id: 'campaign.id',
+                    label: 'Is part of',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'campaign'
+                },
+                {
+                    id: 'campaign-email.sent_status',
+                    label: 'Received',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'campaign'
+                },
+                {
+                    id: 'email_open.id',
+                    label: 'Opened',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'campaign'
+                },
+                {
+                    id: 'interactiongroup.id',
+                    label: 'Clicked',
+                    type: 'boolean',
+                    input: 'binaryradio',
+                    display_entity: 'Campaign',
+                    entity: 'campaign'
+                },
+                {
+                    id: 'campaign.creator',
+                    label: 'Created by',
+                    type: 'integer',
+                    input: 'autocomplete',
+                    display_entity: 'Campaign',
+                    entity: 'campaign'
+                },
+                {
+                    id: 'campaign.type',
+                    label: 'Type',
+                    type: 'string',
+                    input: 'multiselect',
+                    display_entity: 'Campaign',
+                    entity: 'campaign'
+                },
+                {
+                    id: 'campaign.status',
+                    label: 'Status',
+                    type: 'string',
+                    input: 'multiselect',
+                    entity: 'campaign',
+                    display_entity: 'Campaign'
+                },
+                {
+                    id: 'person-address.state_region',
+                    label: 'State/Region',
+                    type: 'string',
+                    input: 'text',
+                    entity: 'person'
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    });
+
+    it('handles a mix of different campaign rule versions', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    'id':'campaign-email.sent_status',
+                    'label':'Received',
+                    'type':'boolean',
+                    'input':'binaryradio',
+                    'display_entity':'Campaign',
+                    'entity':'person',
+                    'value':'',
+                    'operator':'true'
+                },
+                {
+                    'id':'email_open.id',
+                    'label':'Opened',
+                    'type':'boolean',
+                    'input':'binaryradio',
+                    'display_entity':'Campaign',
+                    'entity':'campaign',
+                    'value':'',
+                    'operator':'true'
+                },
+                {
+                    'id':'interactiongroup.id',
+                    'label':'Clicked',
+                    'type':'boolean',
+                    'input':'binaryradio',
+                    'display_entity':'Campaign',
+                    'entity':'person',
+                    'value':'',
+                    'operator':'true'
+                },
+                {
+                    'id':'person-customer.customers',
+                    'entity':'person',
+                    'input':'binaryradio',
+                    'label':'Customers',
+                    'operator':'true',
+                    'type':'boolean',
+                    'value':''
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    'id':'campaign-email.sent_status',
+                    'label':'Received',
+                    'type':'boolean',
+                    'input':'binaryradio',
+                    'display_entity':'Campaign',
+                    'entity':'campaign',
+                    'value':[
+                        'true'
+                    ],
+                    'operator':'equal'
+                },
+                {
+                    'id':'email_open.id',
+                    'label':'Opened',
+                    'type':'boolean',
+                    'input':'binaryradio',
+                    'display_entity':'Campaign',
+                    'entity':'campaign',
+                    'value':[
+                        'true'
+                    ],
+                    'operator':'equal'
+                },
+                {
+                    'id':'interactiongroup.id',
+                    'label':'Clicked',
+                    'type':'boolean',
+                    'input':'binaryradio',
+                    'display_entity':'Campaign',
+                    'entity':'campaign',
+                    'value':['true'],
+                    'operator':'equal'
+                },
+                {
+                    'id':'person-type.id',
+                    'entity':'person',
+                    'input':'multiselect',
+                    'label':'Type',
+                    'operator':'in',
+                    'type':'integer',
+                    'value':[
+                        2
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    });
 });
