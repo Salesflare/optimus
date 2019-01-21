@@ -16,6 +16,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'person-tag.id',
+                    query_builder_id: 'person-tag.id',
                     label: 'Tag',
                     type: 'string',
                     input: 'tags',
@@ -25,6 +26,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-customer.customers',
+                    query_builder_id: 'person-customer.customers',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'Customers',
@@ -34,6 +36,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-contact.my-contacts',
+                    query_builder_id: 'person-contact.my-contacts',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'My contacts',
@@ -48,6 +51,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'person-tag.id',
+                    query_builder_id: 'person-tag.id',
                     label: 'Tag',
                     type: 'string',
                     input: 'tags',
@@ -57,6 +61,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
                     entity: 'person',
                     input: 'multiselect',
                     label: 'Type',
@@ -66,6 +71,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
                     entity: 'person',
                     input: 'multiselect',
                     label: 'Type',
@@ -85,6 +91,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'person-contact.my-contacts',
+                    query_builder_id: 'person-contact.my-contacts',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'My contacts',
@@ -106,6 +113,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'person-tag.id',
+                    query_builder_id: 'person-tag.id',
                     label: 'Tag',
                     type: 'string',
                     input: 'tags',
@@ -115,6 +123,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-customer.customers',
+                    query_builder_id: 'person-customer.customers',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'Customers',
@@ -124,6 +133,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-contact.my-contacts',
+                    query_builder_id: 'person-contact.my-contacts',
                     entity: 'person',
                     input: 'binaryradio',
                     label: 'My contacts',
@@ -138,6 +148,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'person-tag.id',
+                    query_builder_id: 'person-tag.id',
                     label: 'Tag',
                     type: 'string',
                     input: 'tags',
@@ -147,6 +158,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
                     entity: 'person',
                     input: 'multiselect',
                     label: 'Type',
@@ -156,6 +168,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
                     entity: 'person',
                     input: 'multiselect',
                     label: 'Type',
@@ -175,6 +188,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -183,6 +197,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -191,6 +206,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -199,6 +215,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -207,6 +224,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -215,6 +233,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -228,6 +247,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -237,6 +257,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -246,6 +267,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -255,6 +277,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -264,6 +287,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -273,6 +297,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'opportunity.closed',
+                    query_builder_id: 'opportunity.closed',
                     label: 'Closed',
                     type: 'boolean',
                     input: 'binaryradio',
@@ -292,6 +317,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'account.size',
+                    query_builder_id: 'account.size',
                     label: 'Size',
                     type: 'integer',
                     input: 'integer',
@@ -304,6 +330,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count account_contact',
+                    query_builder_id: 'count account_contact',
                     label: '# contacts',
                     type: 'integer',
                     input: 'integer',
@@ -316,6 +343,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -328,6 +356,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -340,6 +369,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -357,6 +387,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'account.size',
+                    query_builder_id: 'account.size',
                     label: 'Size',
                     type: 'integer',
                     input: 'integer',
@@ -366,6 +397,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count account_contact',
+                    query_builder_id: 'count account_contact',
                     label: '# contacts',
                     type: 'integer',
                     input: 'integer',
@@ -375,6 +407,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -384,6 +417,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -393,6 +427,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -412,6 +447,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'account.size',
+                    query_builder_id: 'account.size',
                     label: 'Size',
                     type: 'integer',
                     input: 'integer',
@@ -422,6 +458,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count account_contact',
+                    query_builder_id: 'count account_contact',
                     label: '# contacts',
                     type: 'integer',
                     input: 'integer',
@@ -432,6 +469,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -442,6 +480,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -452,6 +491,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -462,6 +502,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -477,6 +518,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'account.size',
+                    query_builder_id: 'account.size',
                     label: 'Size',
                     type: 'integer',
                     input: 'integer',
@@ -486,6 +528,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count account_contact',
+                    query_builder_id: 'count account_contact',
                     label: '# contacts',
                     type: 'integer',
                     input: 'integer',
@@ -495,6 +538,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -504,6 +548,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -513,6 +558,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -522,6 +568,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -541,6 +588,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'account.size',
+                    query_builder_id: 'account.size',
                     label: 'Size',
                     type: 'integer',
                     input: 'integer',
@@ -550,6 +598,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count account_contact',
+                    query_builder_id: 'count account_contact',
                     label: '# contacts',
                     type: 'integer',
                     input: 'integer',
@@ -559,6 +608,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -568,6 +618,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -582,6 +633,7 @@ describe('transformer', () => {
             rules: [
                 {
                     id: 'account.size',
+                    query_builder_id: 'account.size',
                     label: 'Size',
                     type: 'integer',
                     input: 'integer',
@@ -591,6 +643,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count account_contact',
+                    query_builder_id: 'count account_contact',
                     label: '# contacts',
                     type: 'integer',
                     input: 'integer',
@@ -600,6 +653,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count opportunity',
+                    query_builder_id: 'count opportunity',
                     label: '# opportunities',
                     type: 'integer',
                     input: 'integer',
@@ -609,6 +663,7 @@ describe('transformer', () => {
                 },
                 {
                     id: 'count task',
+                    query_builder_id: 'count task',
                     label: '# tasks',
                     type: 'integer',
                     input: 'integer',
@@ -706,6 +761,7 @@ describe('transformer', () => {
                 {
                     id: 'campaign.name',
                     label: 'Name',
+                    query_builder_id: 'campaign.name',
                     type: 'string',
                     input: 'text',
                     display_entity: 'Campaign',
@@ -714,6 +770,7 @@ describe('transformer', () => {
                 {
                     id: 'campaign.id',
                     label: 'Is part of',
+                    query_builder_id: 'campaign.id',
                     type: 'boolean',
                     input: 'binaryradio',
                     display_entity: 'Campaign',
@@ -722,6 +779,7 @@ describe('transformer', () => {
                 {
                     id: 'campaign-email.sent_status',
                     label: 'Received',
+                    query_builder_id: 'campaign-email.sent_status',
                     type: 'boolean',
                     input: 'binaryradio',
                     display_entity: 'Campaign',
@@ -730,6 +788,7 @@ describe('transformer', () => {
                 {
                     id: 'email_open.id',
                     label: 'Opened',
+                    query_builder_id: 'email_open.id',
                     type: 'boolean',
                     input: 'binaryradio',
                     display_entity: 'Campaign',
@@ -738,6 +797,7 @@ describe('transformer', () => {
                 {
                     id: 'interactiongroup.id',
                     label: 'Clicked',
+                    query_builder_id: 'interactiongroup.id',
                     type: 'boolean',
                     input: 'binaryradio',
                     display_entity: 'Campaign',
@@ -746,6 +806,7 @@ describe('transformer', () => {
                 {
                     id: 'campaign.creator',
                     label: 'Created by',
+                    query_builder_id: 'campaign.creator',
                     type: 'integer',
                     input: 'autocomplete',
                     display_entity: 'Campaign',
@@ -754,6 +815,7 @@ describe('transformer', () => {
                 {
                     id: 'campaign.type',
                     label: 'Type',
+                    query_builder_id: 'campaign.type',
                     type: 'string',
                     input: 'multiselect',
                     display_entity: 'Campaign',
@@ -764,6 +826,7 @@ describe('transformer', () => {
                     label: 'Status',
                     type: 'string',
                     input: 'multiselect',
+                    query_builder_id: 'campaign.status',
                     entity: 'campaign',
                     display_entity: 'Campaign'
                 },
@@ -771,6 +834,7 @@ describe('transformer', () => {
                     id: 'person-address.state_region',
                     label: 'State/Region',
                     type: 'string',
+                    query_builder_id: 'person-address.state_region',
                     input: 'text',
                     entity: 'person'
                 }
@@ -778,7 +842,8 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    });
+    },
+
 
     it('handles a mix of different campaign rule versions', () => {
 
@@ -831,6 +896,7 @@ describe('transformer', () => {
                 {
                     'id':'campaign-email.sent_status',
                     'label':'Received',
+                    'query_builder_id': 'campaign-email.sent_status',
                     'type':'boolean',
                     'input':'binaryradio',
                     'display_entity':'Campaign',
@@ -843,6 +909,7 @@ describe('transformer', () => {
                 {
                     'id':'email_open.id',
                     'label':'Opened',
+                    'query_builder_id': 'email_open.id',
                     'type':'boolean',
                     'input':'binaryradio',
                     'display_entity':'Campaign',
@@ -855,6 +922,7 @@ describe('transformer', () => {
                 {
                     'id':'interactiongroup.id',
                     'label':'Clicked',
+                    'query_builder_id': 'interactiongroup.id',
                     'type':'boolean',
                     'input':'binaryradio',
                     'display_entity':'Campaign',
@@ -867,6 +935,7 @@ describe('transformer', () => {
                     'entity':'person',
                     'input':'multiselect',
                     'label':'Type',
+                    'query_builder_id': 'person-type.id',
                     'operator':'in',
                     'type':'integer',
                     'value':[
@@ -877,5 +946,107 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    });
+    }),
+
+    it('adds a query_builder_id when not present for older formats', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'account.size',
+                    query_builder_id: 'account.size',
+                    label: 'Size',
+                    type: 'integer',
+                    input: 'integer',
+                    entity: 'account',
+                    operator: 'between',
+                    value: [1, 2]
+                },
+                {
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    }),
+
+    it('fixes custom ids with spaces', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    id: 'custom.Name thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'count custom.Name thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'custom.Name thing',
+                    entity: 'account',
+                    operator: 'equal',
+                    value: ['salesflare']
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    id: 'custom.name_thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'count custom.name_thing',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'account.name',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'custom.name_thing',
+                    query_builder_id: 'custom.name_thing',
+                    entity: 'account',
+                    operator: 'equal',
+                    value: ['salesflare']
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    }));
 });
