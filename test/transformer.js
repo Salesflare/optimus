@@ -1048,5 +1048,118 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    }));
+    }),
+
+    it('can handle nested rules', () => {
+
+        const oldFilter = {
+            rules: [
+                {
+                    condition: 'OR',
+                    rules: [
+                        {
+                            id: 'custom.Name thing',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        },
+                        {
+                            id: 'count custom.Name thing',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        },
+                        {
+                            id: 'account.name',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        },
+                        {
+                            id: 'custom.Name thing',
+                            entity: 'account',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'OR',
+                    rules: [
+                        {
+                            id: 'custom.name_thing',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        },
+                        {
+                            id: 'count custom.name_thing',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        },
+                        {
+                            id: 'account.name',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        },
+                        {
+                            id: 'custom.name_thing',
+                            query_builder_id: 'custom.name_thing',
+                            entity: 'account',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
+    }),
+
+    it('should fail for faulty filter objects 1', () => {
+
+        const filterNoRules = {
+            rules: [
+                {
+                    condition: 'AND'
+                }
+            ]
+        };
+
+        return expect(() => Transformer.transform(filterNoRules)).to.throw(Error,'Invalid filter object');
+    }),
+    it('should fail for faulty filter objects 2', () => {
+
+        const filterEmpty = {
+            rules: [
+                {
+
+                }
+            ]
+        };
+
+        return expect(() => Transformer.transform(filterEmpty)).to.throw(Error,'Invalid filter object');
+    }),
+    it('should fail for faulty filter objects 3', () => {
+
+        const filterNoCondition = {
+            rules: [
+                {
+                    rules: [
+                        {
+                            id: 'custom.Name thing',
+                            operator: 'equal',
+                            value: ['salesflare']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(() => Transformer.transform(filterNoCondition)).to.throw(Error,'Invalid filter object');
+    })
+
+    );
 });
