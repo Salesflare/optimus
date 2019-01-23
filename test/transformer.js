@@ -211,7 +211,10 @@ describe('transformer', () => {
                     type: 'boolean',
                     input: 'binaryradio',
                     entity: 'opportunity',
-                    operator: 'is_null'
+                    operator: {
+                        key: 'is_null',
+                        value: 'is false'
+                    }
                 },
                 {
                     id: 'opportunity.closed',
