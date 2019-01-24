@@ -183,4 +183,34 @@ describe('hapi plugin', () => {
 
         return expect(res.statusCode).to.equal(200);
     });
+
+    it('doesn\'t add rules property when it was not already there', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'GET',
+            config: {
+                pre: ['optimus.transformInPlace(query)']
+            },
+            handler: (request, reply) => {
+
+                return reply(Object.keys(request.query));
+            }
+        });
+
+        await server.initialize();
+
+        const res = await server.inject({
+            url: '/?q%5Ba%5D=1',
+            method: 'GET'
+        });
+
+        expect(res.statusCode).to.equal(200);
+        return expect(res.payload).to.not.include('rules');
+    });
 });
