@@ -845,7 +845,7 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    },
+    });
 
 
     it('handles a mix of different campaign rule versions', () => {
@@ -949,7 +949,7 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    }),
+    });
 
     it('adds a query_builder_id when not present for older formats', () => {
 
@@ -993,7 +993,7 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    }),
+    });
 
     it('fixes custom ids with spaces', () => {
 
@@ -1051,7 +1051,7 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    }),
+    });
 
     it('can handle nested rules', () => {
 
@@ -1119,7 +1119,7 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
-    }),
+    });
 
     it('should fail for faulty filter objects without rules', () => {
 
@@ -1131,8 +1131,9 @@ describe('transformer', () => {
             ]
         };
 
-        return expect(() => Transformer.transform(filterNoRules)).to.throw(Error,'Invalid filter object');
-    }),
+        return expect(() => Transformer.transform(filterNoRules)).to.throw(Error, 'Invalid filter object');
+    });
+
     it('should fail for faulty filter objects without condition', () => {
 
         const filterNoCondition = {
@@ -1150,7 +1151,8 @@ describe('transformer', () => {
         };
 
         return expect(() => Transformer.transform(filterNoCondition)).to.throw(Error,'Invalid filter object');
-    }),
+    });
+
     it('should fail for faulty filter objects without rules or a condition', () => {
 
         const filterEmpty = {
@@ -1161,9 +1163,10 @@ describe('transformer', () => {
             ]
         };
 
-        return expect(() => Transformer.transform(filterEmpty)).to.throw(Error,'Invalid filter object');
-    }),
-    it('should not try to transform an object without a rules property', () => {
+        return expect(() => Transformer.transform(filterEmpty)).to.throw(Error, 'Invalid filter object');
+    });
+
+    it('should fail for faulty filter objects with no sub condition', () => {
 
         const object = {
             some_property: 'test',
@@ -1173,7 +1176,8 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(object)).to.equal(object);
-    }),
+    });
+
     it('should transform rules with a new format but an old id', () => {
 
         const mixedFilter = {
@@ -1207,7 +1211,8 @@ describe('transformer', () => {
         };
 
         return expect(Transformer.transform(mixedFilter)).to.equal(newFilter);
-    }),
+    });
+
     it('should error on semi enriched rules', () => {
 
         const faultyObject = {
@@ -1227,6 +1232,12 @@ describe('transformer', () => {
         };
 
         return expect(() => Transformer.transform(faultyObject)).to.throw(Error,'Invalid filter object');
-    })
-    );
+    });
+
+    it('shouldn\'t fail for faulty filter object with no rules', () => {
+
+        const emptyFilterObject = { ids: [1, 2] };
+
+        return expect(Transformer.transform(emptyFilterObject)).to.equal({ ids: [1, 2] });
+    });
 });
