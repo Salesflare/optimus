@@ -1121,7 +1121,7 @@ describe('transformer', () => {
         return expect(Transformer.transform(oldFilter)).to.equal(newFilter);
     }),
 
-    it('should fail for faulty filter objects 1', () => {
+    it('should fail for faulty filter objects without rules', () => {
 
         const filterNoRules = {
             rules: [
@@ -1133,19 +1133,7 @@ describe('transformer', () => {
 
         return expect(() => Transformer.transform(filterNoRules)).to.throw(Error,'Invalid filter object');
     }),
-    it('should fail for faulty filter objects 2', () => {
-
-        const filterEmpty = {
-            rules: [
-                {
-
-                }
-            ]
-        };
-
-        return expect(() => Transformer.transform(filterEmpty)).to.throw(Error,'Invalid filter object');
-    }),
-    it('should fail for faulty filter objects 3', () => {
+    it('should fail for faulty filter objects without condition', () => {
 
         const filterNoCondition = {
             rules: [
@@ -1162,7 +1150,83 @@ describe('transformer', () => {
         };
 
         return expect(() => Transformer.transform(filterNoCondition)).to.throw(Error,'Invalid filter object');
-    })
+    }),
+    it('should fail for faulty filter objects without rules or a condition', () => {
 
+        const filterEmpty = {
+            rules: [
+                {
+
+                }
+            ]
+        };
+
+        return expect(() => Transformer.transform(filterEmpty)).to.throw(Error,'Invalid filter object');
+    }),
+    it('should not try to transform an object without a rules property', () => {
+
+        const object = {
+            some_property: 'test',
+            id: 'test.id',
+            operator: 'plus',
+            value: [1,2]
+        };
+
+        return expect(Transformer.transform(object)).to.equal(object);
+    }),
+    it('should transform rules with a new format but an old id', () => {
+
+        const mixedFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'task_assignee.assignee',
+                            operator: 'in',
+                            value: [1]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'task.assignee.id',
+                            operator: 'in',
+                            value: [1]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(mixedFilter)).to.equal(newFilter);
+    }),
+    it('should error on semi enriched rules', () => {
+
+        const faultyObject = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'task.assignee.id',
+                            query_builder_id: 'task_assignee.assignee',
+                            operator: 'in',
+                            value: [1]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(() => Transformer.transform(faultyObject)).to.throw(Error,'Invalid filter object');
+    })
     );
 });
