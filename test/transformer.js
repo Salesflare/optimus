@@ -1019,6 +1019,12 @@ describe('transformer', () => {
                     entity: 'account',
                     operator: 'equal',
                     value: ['salesflare']
+                },
+                {
+                    id: 'count custom.Name thing',
+                    entity: 'account',
+                    operator: 'equal',
+                    value: ['salesflare']
                 }
             ]
         };
@@ -1043,6 +1049,13 @@ describe('transformer', () => {
                 {
                     id: 'custom.name_thing',
                     query_builder_id: 'custom.name_thing',
+                    entity: 'account',
+                    operator: 'equal',
+                    value: ['salesflare']
+                },
+                {
+                    id: 'count custom.name_thing',
+                    query_builder_id: 'count custom.name_thing',
                     entity: 'account',
                     operator: 'equal',
                     value: ['salesflare']
@@ -1239,5 +1252,52 @@ describe('transformer', () => {
         const emptyFilterObject = { ids: [1, 2] };
 
         return expect(Transformer.transform(emptyFilterObject)).to.equal({ ids: [1, 2] });
+    });
+
+    it('should not add query_builder_id to client rules with new id', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'task.assignee.id',
+                            label: 'Assignee',
+                            type: 'integer',
+                            input: 'autocomplete',
+                            entity: 'Task',
+                            entity_ui: 'Task',
+                            operator: 'in',
+                            raw_value: [{ id: 165482, prefix: null, firstname: 'Jasper', middle: null, lastname: 'van de Kant', suffix: null }],
+                            value: { 0: 165482, value: [165482], raw_value: [{ id: 165482, prefix: null, firstname: 'Jasper', middle: null, lastname: 'van de Kant', suffix: null }] }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'task.assignee.id',
+                            label: 'Assignee',
+                            type: 'integer',
+                            input: 'autocomplete',
+                            entity: 'Task',
+                            entity_ui: 'Task',
+                            operator: 'in',
+                            raw_value: [{ id: 165482, prefix: null, firstname: 'Jasper', middle: null, lastname: 'van de Kant', suffix: null }],
+                            value: { 0: 165482, value: [165482], raw_value: [{ id: 165482, prefix: null, firstname: 'Jasper', middle: null, lastname: 'van de Kant', suffix: null }] }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
     });
 });
