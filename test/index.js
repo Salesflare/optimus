@@ -93,6 +93,15 @@ describe('hapi plugin', () => {
         return expect(server.methods.optimus.transform()).to.equal(undefined);
     });
 
+    it('\'s methods fail when passed undefined', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        expect(server.methods.optimus.transformSimpleRules()).to.equal(undefined);
+        return expect(server.methods.optimus.transformInPlace()).to.equal(undefined);
+    });
+
     it('works as a pre function', async () => {
 
         const server = new Hapi.Server();
@@ -155,7 +164,7 @@ describe('hapi plugin', () => {
         return expect(res.result).to.equal(newFilter);
     });
 
-    it('works as a pre function wen nothing is passed', async () => {
+    it('works as a pre function when passed an entire request object', async () => {
 
         const server = new Hapi.Server();
         await server.register(Optimus);
@@ -166,7 +175,128 @@ describe('hapi plugin', () => {
             path: '/',
             method: 'DELETE',
             config: {
-                pre: ['optimus.transformInPlace(query.q)']
+                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformInPlace(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply(request.payload);
+            }
+        });
+
+        await server.initialize();
+
+        const oldFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-customer.customers',
+                    query_builder_id: 'person-customer.customers',
+                    entity: 'person',
+                    input: 'binaryradio',
+                    label: 'My contacts',
+                    operator: 'true',
+                    type: 'boolean',
+                    value: ['']
+                }
+            ]
+        };
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, q: oldFilter }
+        });
+
+        const newFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
+                    entity: 'person',
+                    input: 'multiselect',
+                    label: 'Type',
+                    operator: 'in',
+                    type: 'integer',
+                    value: [2]
+                }
+            ]
+        };
+
+        return expect(res.result.q).to.equal(newFilter);
+    });
+
+    it('works as a pre function when passed an entire request object with an array of rules instead of an object', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformInPlace(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply(request.payload);
+            }
+        });
+
+        await server.initialize();
+
+        const oldFilter = [
+            {
+                id: 'person-customer.customers',
+                query_builder_id: 'person-customer.customers',
+                entity: 'person',
+                input: 'binaryradio',
+                label: 'My contacts',
+                operator: 'true',
+                type: 'boolean',
+                value: ['']
+            }
+        ];
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, q: oldFilter }
+        });
+
+        const newFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
+                    entity: 'person',
+                    input: 'multiselect',
+                    label: 'Type',
+                    operator: 'in',
+                    type: 'integer',
+                    value: [2]
+                }
+            ]
+        };
+
+        return expect(res.result.q).to.equal(newFilter);
+    });
+
+    it('uses transformInPlace as a pre function wen nothing is passed', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformInPlace(query)']
             },
             handler: (request, reply) => {
 
@@ -179,6 +309,100 @@ describe('hapi plugin', () => {
         const res = await server.inject({
             url: '/',
             method: 'DELETE'
+        });
+
+        return expect(res.statusCode).to.equal(200);
+    });
+
+    it('uses transformSimpleRules as a pre function wen nothing is passed', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(query)']
+            },
+            handler: (request, reply) => {
+
+                return reply();
+            }
+        });
+
+        await server.initialize();
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE'
+        });
+
+        return expect(res.statusCode).to.equal(200);
+    });
+
+    it('uses transformSimpleRules as a pre function wen a faulty payload is passed', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply();
+            }
+        });
+
+        await server.initialize();
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: {
+                limit: 10
+            }
+        });
+
+        return expect(res.statusCode).to.equal(200);
+    });
+
+    it('uses transformSimpleRules as a pre function wen a faulty filter object is passed', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply();
+            }
+        });
+
+        await server.initialize();
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: {
+                limit: 10,
+                q: { 'condition': 'AND' }
+            }
         });
 
         return expect(res.statusCode).to.equal(200);
@@ -213,4 +437,82 @@ describe('hapi plugin', () => {
         expect(res.statusCode).to.equal(200);
         return expect(res.payload).to.not.include('rules');
     });
+
+    it('transforms a simple rule array to a filter object', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformSimpleRules(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply(request.payload);
+            }
+        });
+
+        await server.initialize();
+
+        const simpleFilter = [{ id: 'asd', operator: 'asd', value: 'asd' }];
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, q: simpleFilter }
+        });
+
+        const filterObject = {
+            condition: 'AND',
+            rules: simpleFilter
+        };
+
+        expect(res.statusCode).to.equal(200);
+        return expect(res.result.q).to.equal(filterObject);
+
+    });
+
+    it('doesn\t transform a filter object like a simple rule array', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformSimpleRules(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply(request.payload);
+            }
+        });
+
+        await server.initialize();
+
+        const simpleFilter = {
+            condition: 'AND',
+            rules: [{ id: 'asd', operator: 'asd', value: 'asd' }]
+        };
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, q: simpleFilter }
+        });
+
+        const filterObject = simpleFilter;
+
+        expect(res.statusCode).to.equal(200);
+        return expect(res.result.q).to.equal(filterObject);
+
+    });
+
 });
