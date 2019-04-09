@@ -408,6 +408,72 @@ describe('hapi plugin', () => {
         return expect(res.statusCode).to.equal(200);
     });
 
+    it('uses transformSimpleRules as a pre function wen an id filter object is passed', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply();
+            }
+        });
+
+        await server.initialize();
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: {
+                limit: 10,
+                filter: { 'id': 10 }
+            }
+        });
+
+        return expect(res.statusCode).to.equal(200);
+    });
+
+    it('uses transformSimpleRules as a pre function wen an ids filter object is passed', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply();
+            }
+        });
+
+        await server.initialize();
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: {
+                limit: 10,
+                filter: { 'ids': [10, 12] }
+            }
+        });
+
+        return expect(res.statusCode).to.equal(200);
+    });
+
     it('doesn\'t add rules property when it was not already there', async () => {
 
         const server = new Hapi.Server();
