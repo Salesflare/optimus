@@ -285,6 +285,65 @@ describe('hapi plugin', () => {
         return expect(res.result.q).to.equal(newFilter);
     });
 
+    it('works as a pre function when passed an entire request object with an array of rules instead of an object, placed on the filter property instead of the q property', async () => {
+
+        const server = new Hapi.Server();
+        await server.register(Optimus);
+
+        server.connection();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            config: {
+                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformInPlace(payload)']
+            },
+            handler: (request, reply) => {
+
+                return reply(request.payload);
+            }
+        });
+
+        await server.initialize();
+
+        const oldFilter = [
+            {
+                id: 'person-customer.customers',
+                query_builder_id: 'person-customer.customers',
+                entity: 'person',
+                input: 'binaryradio',
+                label: 'My contacts',
+                operator: 'true',
+                type: 'boolean',
+                value: ['']
+            }
+        ];
+
+        const res = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, filter: oldFilter }
+        });
+
+        const newFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
+                    entity: 'person',
+                    input: 'multiselect',
+                    label: 'Type',
+                    operator: 'in',
+                    type: 'integer',
+                    value: [2]
+                }
+            ]
+        };
+
+        return expect(res.result.filter).to.equal(newFilter);
+    });
+
     it('uses transformInPlace as a pre function wen nothing is passed', async () => {
 
         const server = new Hapi.Server();
