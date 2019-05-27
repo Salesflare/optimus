@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Salesflare/optimus#readme",
   "engines": {
-    "node": ">8.3.0"
+    "node": ">8.16.0"
   },
   "browserslist": "last 2 versions",
   "config": {
@@ -36,20 +36,20 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "code": "^5.2.4",
     "eslint-config-salesflare": "^1.2.1",
     "eslint-plugin-dependencies": "^2.4.0",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "^9.1.0",
     "ghooks": "^2.0.4",
     "hapi": "^16.7.0",
     "lab": "^18.0.2",
     "rimraf": "^2.6.3",
-    "rollup": "^1.7.3",
+    "rollup": "^1.12.4",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^9.2.2",
-    "rollup-plugin-terser": "^4.0.4"
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-terser": "^5.0.0"
   },
   "files": [
     "lib",
