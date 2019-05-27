@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint --fix .",
-    "test": "lab -a code -t 100",
+    "test": "lab -a @hapi/code -t 100",
     "build": "rimraf dist && NODE_ENV=dev rollup --config",
     "build-production": "rimraf dist && NODE_ENV=production rollup --config",
     "preversion": "npm run build-production && git add dist"
@@ -38,13 +38,13 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
-    "code": "^5.2.4",
+    "@hapi/code": "^5.3.1",
+    "@hapi/lab": "^19.0.1",
     "eslint-config-salesflare": "^1.2.1",
     "eslint-plugin-dependencies": "^2.4.0",
     "eslint-plugin-node": "^9.1.0",
     "ghooks": "^2.0.4",
     "hapi": "^16.7.0",
-    "lab": "^18.0.2",
     "rimraf": "^2.6.3",
     "rollup": "^1.12.4",
     "rollup-plugin-babel": "^4.3.2",
