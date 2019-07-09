@@ -139,7 +139,7 @@ describe('hapi plugin', () => {
             ]
         };
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: oldFilter
@@ -161,7 +161,7 @@ describe('hapi plugin', () => {
             ]
         };
 
-        return expect(res.result).to.equal(newFilter);
+        return expect(response.result).to.equal(newFilter);
     });
 
     it('works as a pre function when passed an entire request object', async () => {
@@ -201,7 +201,7 @@ describe('hapi plugin', () => {
             ]
         };
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: { limit: 10, details: true, q: oldFilter }
@@ -223,7 +223,7 @@ describe('hapi plugin', () => {
             ]
         };
 
-        return expect(res.result.q).to.equal(newFilter);
+        return expect(response.result.q).to.equal(newFilter);
     });
 
     it('works as a pre function when passed an entire request object with an array of rules instead of an object', async () => {
@@ -260,7 +260,7 @@ describe('hapi plugin', () => {
             }
         ];
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: { limit: 10, details: true, q: oldFilter }
@@ -282,7 +282,7 @@ describe('hapi plugin', () => {
             ]
         };
 
-        return expect(res.result.q).to.equal(newFilter);
+        return expect(response.result.q).to.equal(newFilter);
     });
 
     it('works as a pre function when passed an entire request object with an array of rules instead of an object, placed on the filter property instead of the q property', async () => {
@@ -319,7 +319,7 @@ describe('hapi plugin', () => {
             }
         ];
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: { limit: 10, details: true, filter: oldFilter }
@@ -341,7 +341,7 @@ describe('hapi plugin', () => {
             ]
         };
 
-        return expect(res.result.filter).to.equal(newFilter);
+        return expect(response.result.filter).to.equal(newFilter);
     });
 
     it('uses transformInPlace as a pre function wen nothing is passed', async () => {
@@ -365,12 +365,12 @@ describe('hapi plugin', () => {
 
         await server.initialize();
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE'
         });
 
-        return expect(res.statusCode).to.equal(200);
+        return expect(response.statusCode).to.equal(200);
     });
 
     it('uses transformSimpleRules as a pre function wen nothing is passed', async () => {
@@ -394,12 +394,12 @@ describe('hapi plugin', () => {
 
         await server.initialize();
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE'
         });
 
-        return expect(res.statusCode).to.equal(200);
+        return expect(response.statusCode).to.equal(200);
     });
 
     it('uses transformSimpleRules as a pre function wen a faulty payload is passed', async () => {
@@ -423,7 +423,7 @@ describe('hapi plugin', () => {
 
         await server.initialize();
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: {
@@ -431,7 +431,7 @@ describe('hapi plugin', () => {
             }
         });
 
-        return expect(res.statusCode).to.equal(200);
+        return expect(response.statusCode).to.equal(200);
     });
 
     it('uses transformSimpleRules as a pre function wen a faulty filter object is passed', async () => {
@@ -455,7 +455,7 @@ describe('hapi plugin', () => {
 
         await server.initialize();
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: {
@@ -464,7 +464,7 @@ describe('hapi plugin', () => {
             }
         });
 
-        return expect(res.statusCode).to.equal(200);
+        return expect(response.statusCode).to.equal(200);
     });
 
     it('uses transformSimpleRules as a pre function wen an id filter object is passed', async () => {
@@ -488,7 +488,7 @@ describe('hapi plugin', () => {
 
         await server.initialize();
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: {
@@ -497,7 +497,7 @@ describe('hapi plugin', () => {
             }
         });
 
-        return expect(res.statusCode).to.equal(200);
+        return expect(response.statusCode).to.equal(200);
     });
 
     it('uses transformSimpleRules as a pre function wen an ids filter object is passed', async () => {
@@ -521,7 +521,7 @@ describe('hapi plugin', () => {
 
         await server.initialize();
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: {
@@ -530,7 +530,7 @@ describe('hapi plugin', () => {
             }
         });
 
-        return expect(res.statusCode).to.equal(200);
+        return expect(response.statusCode).to.equal(200);
     });
 
     it('doesn\'t add rules property when it was not already there', async () => {
@@ -554,13 +554,13 @@ describe('hapi plugin', () => {
 
         await server.initialize();
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/?q%5Ba%5D=1',
             method: 'GET'
         });
 
-        expect(res.statusCode).to.equal(200);
-        return expect(res.payload).to.not.include('rules');
+        expect(response.statusCode).to.equal(200);
+        return expect(response.payload).to.not.include('rules');
     });
 
     it('transforms a simple rule array to a filter object', async () => {
@@ -585,7 +585,7 @@ describe('hapi plugin', () => {
         await server.initialize();
 
         const simpleFilter = [{ id: 'asd', operator: 'asd', value: 'asd' }];
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: { limit: 10, details: true, q: simpleFilter }
@@ -596,8 +596,8 @@ describe('hapi plugin', () => {
             rules: simpleFilter
         };
 
-        expect(res.statusCode).to.equal(200);
-        return expect(res.result.q).to.equal(filterObject);
+        expect(response.statusCode).to.equal(200);
+        return expect(response.result.q).to.equal(filterObject);
 
     });
 
@@ -627,7 +627,7 @@ describe('hapi plugin', () => {
             rules: [{ id: 'asd', operator: 'asd', value: 'asd' }]
         };
 
-        const res = await server.inject({
+        const response = await server.inject({
             url: '/',
             method: 'DELETE',
             payload: { limit: 10, details: true, q: simpleFilter }
@@ -635,8 +635,8 @@ describe('hapi plugin', () => {
 
         const filterObject = simpleFilter;
 
-        expect(res.statusCode).to.equal(200);
-        return expect(res.result.q).to.equal(filterObject);
+        expect(response.statusCode).to.equal(200);
+        return expect(response.result.q).to.equal(filterObject);
 
     });
 

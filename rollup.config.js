@@ -4,7 +4,7 @@ const Commonjs  = require('rollup-plugin-commonjs');
 const Babel  = require('rollup-plugin-babel');
 const { terser }  = require('rollup-plugin-terser');
 
-const env = process.env.NODE_ENV;
+const environment = process.env.NODE_ENV;
 const config = {
     input: './lib/transformer.js',
     output: {
@@ -27,7 +27,7 @@ const config = {
     ]
 };
 
-if (env === 'production') {
+if (environment === 'production') {
     config.plugins.push(
         terser({
             warnings: true,
