@@ -38,7 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "@hapi/code": "^5.3.1",
+    "@hapi/code": "^6.0.0",
     "@hapi/lab": "^19.1.0",
     "eslint": "^6.1.0",
     "eslint-config-salesflare": "^2.0.1",
