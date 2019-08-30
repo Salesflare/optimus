@@ -38,17 +38,16 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "@hapi/code": "^5.3.1",
-    "@hapi/lab": "^19.1.0",
-    "eslint": "^6.1.0",
+    "@hapi/code": "^6.0.0",
+    "@hapi/lab": "^20.2.1",
+    "eslint": "^6.2.2",
     "eslint-config-salesflare": "^2.0.1",
-    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-node": "^9.2.0",
     "ghooks": "^2.0.4",
     "hapi": "^16.7.0",
-    "rimraf": "^2.6.3",
-    "rollup": "^1.17.0",
+    "rollup": "^1.20.3",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-terser": "^5.1.1"
   },
   "files": [
