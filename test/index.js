@@ -2,19 +2,16 @@
 
 const Lab = require('@hapi/lab');
 const Code = require('@hapi/code');
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 
 const { describe, it } = exports.lab = Lab.script();
 const expect = Code.expect;
 
 const Optimus = require('../lib');
 
-describe('hapi plugin', () => {
+describe('hapi helper functions', () => {
 
-    it('registers and transforms', async () => {
-
-        const server = new Hapi.Server();
-        await server.register(Optimus);
+    it('transforms', () => {
 
         const oldFilter = {
             rules: [
@@ -86,38 +83,38 @@ describe('hapi plugin', () => {
             ]
         };
 
-        expect(server.methods.optimus.transform).to.be.a.function();
         expect(Optimus.transform).to.be.a.function();
 
-        expect(server.methods.optimus.transform(oldFilter)).to.equal(newFilter);
-        return expect(server.methods.optimus.transform()).to.equal(undefined);
+        expect(Optimus.transform(oldFilter)).to.equal(newFilter);
+        expect(Optimus.transform()).to.equal(undefined);
     });
 
-    it('\'s methods fail when passed undefined', async () => {
+    it('return a wrapper function', () => {
 
-        const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        expect(server.methods.optimus.transformSimpleRules()).to.equal(undefined);
-        return expect(server.methods.optimus.transformInPlace()).to.equal(undefined);
+        expect(Optimus.pre.transformSimpleRules()).to.be.a.function();
+        expect(Optimus.pre.transformInPlace()).to.be.a.function();
     });
 
-    it('works as a pre function', async () => {
+    it('return continue', () => {
+
+        const continueSymbol = Symbol.continue;
+        expect(Optimus.pre.transformSimpleRules()({}, { continue: continueSymbol })).to.equal(continueSymbol);
+        expect(Optimus.pre.transformInPlace()({}, { continue: continueSymbol })).to.equal(continueSymbol);
+    });
+
+    it('work as pre functions', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformInPlace(payload)']
+            options: {
+                pre: [Optimus.pre.transformInPlace('payload')]
             },
-            handler: (request, reply) => {
+            handler: (request) => {
 
-                return reply(request.payload);
+                return request.payload;
             }
         });
 
@@ -167,19 +164,16 @@ describe('hapi plugin', () => {
     it('works as a pre function when passed an entire request object', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformInPlace(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformInPlace('payload')]
             },
-            handler: (request, reply) => {
+            handler: (request) => {
 
-                return reply(request.payload);
+                return request.payload;
             }
         });
 
@@ -229,19 +223,16 @@ describe('hapi plugin', () => {
     it('works as a pre function when passed an entire request object with an array of rules instead of an object', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformInPlace(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformInPlace('payload')]
             },
-            handler: (request, reply) => {
+            handler: (request) => {
 
-                return reply(request.payload);
+                return request.payload;
             }
         });
 
@@ -288,19 +279,16 @@ describe('hapi plugin', () => {
     it('works as a pre function when passed an entire request object with an array of rules instead of an object, placed on the filter property instead of the q property', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformInPlace(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformInPlace('payload')]
             },
-            handler: (request, reply) => {
+            handler: (request) => {
 
-                return reply(request.payload);
+                return request.payload;
             }
         });
 
@@ -347,20 +335,14 @@ describe('hapi plugin', () => {
     it('uses transformInPlace as a pre function wen nothing is passed', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformInPlace(query)']
+            options: {
+                pre: [Optimus.pre.transformInPlace('query')]
             },
-            handler: (request, reply) => {
-
-                return reply();
-            }
+            handler: () => false
         });
 
         await server.initialize();
@@ -376,20 +358,14 @@ describe('hapi plugin', () => {
     it('uses transformSimpleRules as a pre function wen nothing is passed', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(query)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('query')]
             },
-            handler: (request, reply) => {
-
-                return reply();
-            }
+            handler: () => false
         });
 
         await server.initialize();
@@ -405,20 +381,14 @@ describe('hapi plugin', () => {
     it('uses transformSimpleRules as a pre function wen a faulty payload is passed', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload')]
             },
-            handler: (request, reply) => {
-
-                return reply();
-            }
+            handler: () => false
         });
 
         await server.initialize();
@@ -437,20 +407,14 @@ describe('hapi plugin', () => {
     it('uses transformSimpleRules as a pre function wen a faulty filter object is passed', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload')]
             },
-            handler: (request, reply) => {
-
-                return reply();
-            }
+            handler: () => false
         });
 
         await server.initialize();
@@ -470,20 +434,14 @@ describe('hapi plugin', () => {
     it('uses transformSimpleRules as a pre function wen an id filter object is passed', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload')]
             },
-            handler: (request, reply) => {
-
-                return reply();
-            }
+            handler: () => false
         });
 
         await server.initialize();
@@ -503,20 +461,14 @@ describe('hapi plugin', () => {
     it('uses transformSimpleRules as a pre function wen an ids filter object is passed', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload')]
             },
-            handler: (request, reply) => {
-
-                return reply();
-            }
+            handler: () => false
         });
 
         await server.initialize();
@@ -536,19 +488,16 @@ describe('hapi plugin', () => {
     it('doesn\'t add rules property when it was not already there', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'GET',
-            config: {
-                pre: ['optimus.transformInPlace(query)']
+            options: {
+                pre: [Optimus.pre.transformInPlace('query')]
             },
-            handler: (request, reply) => {
+            handler: (request) => {
 
-                return reply(Object.keys(request.query));
+                return Object.keys(request.query);
             }
         });
 
@@ -566,19 +515,16 @@ describe('hapi plugin', () => {
     it('transforms a simple rule array to a filter object', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformSimpleRules(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformSimpleRules('payload')]
             },
-            handler: (request, reply) => {
+            handler: (request) => {
 
-                return reply(request.payload);
+                return request.payload;
             }
         });
 
@@ -604,19 +550,16 @@ describe('hapi plugin', () => {
     it('doesn\t transform a filter object like a simple rule array', async () => {
 
         const server = new Hapi.Server();
-        await server.register(Optimus);
-
-        server.connection();
 
         server.route({
             path: '/',
             method: 'DELETE',
-            config: {
-                pre: ['optimus.transformSimpleRules(payload)', 'optimus.transformSimpleRules(payload)']
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformSimpleRules('payload')]
             },
-            handler: (request, reply) => {
+            handler: (request) => {
 
-                return reply(request.payload);
+                return request.payload;
             }
         });
 
@@ -637,7 +580,5 @@ describe('hapi plugin', () => {
 
         expect(response.statusCode).to.equal(200);
         return expect(response.result.q).to.equal(filterObject);
-
     });
-
 });
