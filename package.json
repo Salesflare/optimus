@@ -55,5 +55,7 @@
     "lib",
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "lodash.get": "^4.4.2"
+  }
 }

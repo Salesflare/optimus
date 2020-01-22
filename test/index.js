@@ -95,7 +95,7 @@ describe('hapi helper functions', () => {
         expect(Optimus.pre.transformInPlace()).to.be.a.function();
     });
 
-    it('return continue', () => {
+    it('returns continue', () => {
 
         const continueSymbol = Symbol.continue;
         expect(Optimus.pre.transformSimpleRules()({}, { continue: continueSymbol })).to.equal(continueSymbol);
@@ -156,6 +156,67 @@ describe('hapi helper functions', () => {
                     value: [2]
                 }
             ]
+        };
+
+        return expect(response.result).to.equal(newFilter);
+    });
+
+    it('work as pre functions with nested location', async () => {
+
+        const server = new Hapi.Server();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            options: {
+                pre: [Optimus.pre.transformInPlace('payload.deep')]
+            },
+            handler: (request) => {
+
+                return request.payload;
+            }
+        });
+
+        await server.initialize();
+
+        const oldFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-customer.customers',
+                    query_builder_id: 'person-customer.customers',
+                    entity: 'person',
+                    input: 'binaryradio',
+                    label: 'My contacts',
+                    operator: 'true',
+                    type: 'boolean',
+                    value: ['']
+                }
+            ]
+        };
+
+        const response = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { deep: oldFilter }
+        });
+
+        const newFilter = {
+            deep : {
+                condition: 'AND',
+                rules: [
+                    {
+                        id: 'person-type.id',
+                        query_builder_id: 'person-type.id',
+                        entity: 'person',
+                        input: 'multiselect',
+                        label: 'Type',
+                        operator: 'in',
+                        type: 'integer',
+                        value: [2]
+                    }
+                ]
+            }
         };
 
         return expect(response.result).to.equal(newFilter);
@@ -332,7 +393,7 @@ describe('hapi helper functions', () => {
         return expect(response.result.filter).to.equal(newFilter);
     });
 
-    it('uses transformInPlace as a pre function wen nothing is passed', async () => {
+    it('uses transformInPlace as a pre function when nothing is passed', async () => {
 
         const server = new Hapi.Server();
 
@@ -355,7 +416,7 @@ describe('hapi helper functions', () => {
         return expect(response.statusCode).to.equal(200);
     });
 
-    it('uses transformSimpleRules as a pre function wen nothing is passed', async () => {
+    it('uses transformSimpleRules as a pre function when nothing is passed', async () => {
 
         const server = new Hapi.Server();
 
@@ -378,7 +439,7 @@ describe('hapi helper functions', () => {
         return expect(response.statusCode).to.equal(200);
     });
 
-    it('uses transformSimpleRules as a pre function wen a faulty payload is passed', async () => {
+    it('uses transformSimpleRules as a pre function when a faulty payload is passed', async () => {
 
         const server = new Hapi.Server();
 
@@ -404,7 +465,7 @@ describe('hapi helper functions', () => {
         return expect(response.statusCode).to.equal(200);
     });
 
-    it('uses transformSimpleRules as a pre function wen a faulty filter object is passed', async () => {
+    it('uses transformSimpleRules as a pre function when a faulty filter object is passed', async () => {
 
         const server = new Hapi.Server();
 
@@ -431,7 +492,7 @@ describe('hapi helper functions', () => {
         return expect(response.statusCode).to.equal(200);
     });
 
-    it('uses transformSimpleRules as a pre function wen an id filter object is passed', async () => {
+    it('uses transformSimpleRules as a pre function when an id filter object is passed', async () => {
 
         const server = new Hapi.Server();
 
@@ -458,7 +519,7 @@ describe('hapi helper functions', () => {
         return expect(response.statusCode).to.equal(200);
     });
 
-    it('uses transformSimpleRules as a pre function wen an ids filter object is passed', async () => {
+    it('uses transformSimpleRules as a pre function when an ids filter object is passed', async () => {
 
         const server = new Hapi.Server();
 
