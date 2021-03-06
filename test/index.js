@@ -202,7 +202,7 @@ describe('hapi helper functions', () => {
         });
 
         const newFilter = {
-            deep : {
+            deep: {
                 condition: 'AND',
                 rules: [
                     {

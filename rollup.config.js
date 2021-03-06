@@ -30,8 +30,7 @@ const config = {
 if (environment === 'production') {
     config.plugins.push(
         terser({
-            warnings: true,
-            sourcemap: true
+            warnings: true
         })
     );
 }

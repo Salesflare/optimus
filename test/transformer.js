@@ -853,43 +853,43 @@ describe('transformer', () => {
         const oldFilter = {
             rules: [
                 {
-                    'id':'campaign-email.sent_status',
-                    'label':'Received',
-                    'type':'boolean',
-                    'input':'binaryradio',
-                    'display_entity':'Campaign',
-                    'entity':'person',
-                    'value':'',
-                    'operator':'true'
+                    'id': 'campaign-email.sent_status',
+                    'label': 'Received',
+                    'type': 'boolean',
+                    'input': 'binaryradio',
+                    'display_entity': 'Campaign',
+                    'entity': 'person',
+                    'value': '',
+                    'operator': 'true'
                 },
                 {
-                    'id':'email_open.id',
-                    'label':'Opened',
-                    'type':'boolean',
-                    'input':'binaryradio',
-                    'display_entity':'Campaign',
-                    'entity':'campaign',
-                    'value':'',
-                    'operator':'true'
+                    'id': 'email_open.id',
+                    'label': 'Opened',
+                    'type': 'boolean',
+                    'input': 'binaryradio',
+                    'display_entity': 'Campaign',
+                    'entity': 'campaign',
+                    'value': '',
+                    'operator': 'true'
                 },
                 {
-                    'id':'interactiongroup.id',
-                    'label':'Clicked',
-                    'type':'boolean',
-                    'input':'binaryradio',
-                    'display_entity':'Campaign',
-                    'entity':'person',
-                    'value':'',
-                    'operator':'true'
+                    'id': 'interactiongroup.id',
+                    'label': 'Clicked',
+                    'type': 'boolean',
+                    'input': 'binaryradio',
+                    'display_entity': 'Campaign',
+                    'entity': 'person',
+                    'value': '',
+                    'operator': 'true'
                 },
                 {
-                    'id':'person-customer.customers',
-                    'entity':'person',
-                    'input':'binaryradio',
-                    'label':'Customers',
-                    'operator':'true',
-                    'type':'boolean',
-                    'value':''
+                    'id': 'person-customer.customers',
+                    'entity': 'person',
+                    'input': 'binaryradio',
+                    'label': 'Customers',
+                    'operator': 'true',
+                    'type': 'boolean',
+                    'value': ''
                 }
             ]
         };
@@ -897,51 +897,51 @@ describe('transformer', () => {
         const newFilter = {
             rules: [
                 {
-                    'id':'campaign-email.sent_status',
-                    'label':'Received',
+                    'id': 'campaign-email.sent_status',
+                    'label': 'Received',
                     'query_builder_id': 'campaign-email.sent_status',
-                    'type':'boolean',
-                    'input':'binaryradio',
-                    'display_entity':'Campaign',
-                    'entity':'campaign',
-                    'value':[
+                    'type': 'boolean',
+                    'input': 'binaryradio',
+                    'display_entity': 'Campaign',
+                    'entity': 'campaign',
+                    'value': [
                         'true'
                     ],
-                    'operator':'equal'
+                    'operator': 'equal'
                 },
                 {
-                    'id':'email_open.id',
-                    'label':'Opened',
+                    'id': 'email_open.id',
+                    'label': 'Opened',
                     'query_builder_id': 'email_open.id',
-                    'type':'boolean',
-                    'input':'binaryradio',
-                    'display_entity':'Campaign',
-                    'entity':'campaign',
-                    'value':[
+                    'type': 'boolean',
+                    'input': 'binaryradio',
+                    'display_entity': 'Campaign',
+                    'entity': 'campaign',
+                    'value': [
                         'true'
                     ],
-                    'operator':'equal'
+                    'operator': 'equal'
                 },
                 {
-                    'id':'interactiongroup.id',
-                    'label':'Clicked',
+                    'id': 'interactiongroup.id',
+                    'label': 'Clicked',
                     'query_builder_id': 'interactiongroup.id',
-                    'type':'boolean',
-                    'input':'binaryradio',
-                    'display_entity':'Campaign',
-                    'entity':'campaign',
-                    'value':['true'],
-                    'operator':'equal'
+                    'type': 'boolean',
+                    'input': 'binaryradio',
+                    'display_entity': 'Campaign',
+                    'entity': 'campaign',
+                    'value': ['true'],
+                    'operator': 'equal'
                 },
                 {
-                    'id':'person-type.id',
-                    'entity':'person',
-                    'input':'multiselect',
-                    'label':'Type',
+                    'id': 'person-type.id',
+                    'entity': 'person',
+                    'input': 'multiselect',
+                    'label': 'Type',
                     'query_builder_id': 'person-type.id',
-                    'operator':'in',
-                    'type':'integer',
-                    'value':[
+                    'operator': 'in',
+                    'type': 'integer',
+                    'value': [
                         2
                     ]
                 }
@@ -1170,9 +1170,7 @@ describe('transformer', () => {
 
         const filterEmpty = {
             rules: [
-                {
-
-                }
+                {}
             ]
         };
 
