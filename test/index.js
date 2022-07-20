@@ -393,6 +393,63 @@ describe('hapi helper functions', () => {
         return expect(response.result.filter).to.equal(newFilter);
     });
 
+    it('works as a pre function when passed an entire request object with an array of rules instead of an object, placed on the filter property instead of the q property and with an extra individual record filter', async () => {
+
+        const server = new Hapi.Server();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformInPlace('payload')]
+            },
+            handler: (request) => {
+
+                return request.payload;
+            }
+        });
+
+        await server.initialize();
+
+        const oldFilter = [
+            {
+                id: 'person-customer.customers',
+                query_builder_id: 'person-customer.customers',
+                entity: 'person',
+                input: 'binaryradio',
+                label: 'My contacts',
+                operator: 'true',
+                type: 'boolean',
+                value: ['']
+            }
+        ];
+
+        const response = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, filter: oldFilter, individual_record_filter: oldFilter }
+        });
+
+        const newFilter = {
+            condition: 'AND',
+            rules: [
+                {
+                    id: 'person-type.id',
+                    query_builder_id: 'person-type.id',
+                    entity: 'person',
+                    input: 'multiselect',
+                    label: 'Type',
+                    operator: 'in',
+                    type: 'integer',
+                    value: [2]
+                }
+            ]
+        };
+
+        expect(response.result.individual_record_filter).to.equal(newFilter);
+        return expect(response.result.filter).to.equal(newFilter);
+    });
+
     it('uses transformInPlace as a pre function when nothing is passed', async () => {
 
         const server = new Hapi.Server();
@@ -641,5 +698,81 @@ describe('hapi helper functions', () => {
 
         expect(response.statusCode).to.equal(200);
         return expect(response.result.q).to.equal(filterObject);
+    });
+
+    it('transforms a individual record filter simple rule array to a filter object', async () => {
+
+        const server = new Hapi.Server();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformSimpleRules('payload')]
+            },
+            handler: (request) => {
+
+                return request.payload;
+            }
+        });
+
+        await server.initialize();
+
+        const simpleFilter = [{ id: 'asd', operator: 'asd', value: 'asd' }];
+        const response = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, q: undefined, individual_record_filter: simpleFilter }
+        });
+
+        const filterObject = {
+            condition: 'AND',
+            rules: simpleFilter
+        };
+
+        expect(response.statusCode).to.equal(200);
+        return expect(response.result.individual_record_filter).to.equal(filterObject);
+
+    });
+
+    it('transforms a individual record filter simple rule array and a regular filter to a filter object', async () => {
+
+        const server = new Hapi.Server();
+
+        server.route({
+            path: '/',
+            method: 'DELETE',
+            options: {
+                pre: [Optimus.pre.transformSimpleRules('payload'), Optimus.pre.transformSimpleRules('payload')]
+            },
+            handler: (request) => {
+
+                return request.payload;
+            }
+        });
+
+        await server.initialize();
+
+        const simpleFilter = [{ id: 'asd', operator: 'asd', value: 'asd' }];
+        const simpleFilter2 = [{ id: 'efg', operator: 'efg', value: 'efg' }];
+        const response = await server.inject({
+            url: '/',
+            method: 'DELETE',
+            payload: { limit: 10, details: true, filter: simpleFilter, individual_record_filter: simpleFilter2 }
+        });
+
+        const filterObject = {
+            condition: 'AND',
+            rules: simpleFilter
+        };
+
+        const filterObject2 = {
+            condition: 'AND',
+            rules: simpleFilter2
+        };
+
+        expect(response.statusCode).to.equal(200);
+        expect(response.result.individual_record_filter).to.equal(filterObject2);
+        return expect(response.result.filter).to.equal(filterObject);
     });
 });
