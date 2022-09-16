@@ -1389,6 +1389,96 @@ describe('transformer', () => {
         return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
     });
 
+    it('should not transform campaign if value is empty array', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: []
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: []
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should not transform campaign if value is no array', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ''
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ''
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
     it('should transform campaign clicked true to not null', () => {
 
         const clientFilter = {
@@ -1875,6 +1965,96 @@ describe('transformer', () => {
                             entity_ui: 'Workflow',
                             operator: 'equal',
                             value: 'false'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should not transform workflow entered if value is id', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: [123]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: [123]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should not transform workflow entered if value is empty array', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: []
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: []
                         }
                     ]
                 }
