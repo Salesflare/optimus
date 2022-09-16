@@ -255,7 +255,7 @@ describe('transformer', () => {
                     type: 'boolean',
                     input: 'binaryradio',
                     entity: 'opportunity',
-                    operator: 'equal',
+                    operator: 'is',
                     value: ['null']
                 },
                 {
@@ -265,7 +265,7 @@ describe('transformer', () => {
                     type: 'boolean',
                     input: 'binaryradio',
                     entity: 'opportunity',
-                    operator: 'not_equal',
+                    operator: 'is_not',
                     value: ['null']
                 },
                 {
@@ -275,7 +275,7 @@ describe('transformer', () => {
                     type: 'boolean',
                     input: 'binaryradio',
                     entity: 'opportunity',
-                    operator: 'equal',
+                    operator: 'is',
                     value: ['null']
                 },
                 {
@@ -285,7 +285,7 @@ describe('transformer', () => {
                     type: 'boolean',
                     input: 'binaryradio',
                     entity: 'opportunity',
-                    operator: 'not_equal',
+                    operator: 'is_not',
                     value: ['null']
                 },
                 {
@@ -1290,6 +1290,591 @@ describe('transformer', () => {
                             operator: 'in',
                             raw_value: [{ id: 165482, prefix: null, firstname: 'Jasper', middle: null, lastname: 'van de Kant', suffix: null }],
                             value: { 0: 165482, value: [165482], raw_value: [{ id: 165482, prefix: null, firstname: 'Jasper', middle: null, lastname: 'van de Kant', suffix: null }] }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform campaign received to sent', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ['true']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'text',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: 'sent'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform campaign not received to not_sent', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ['false']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.received',
+                            label: 'Campaign received',
+                            type: 'text',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: 'not_sent'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform campaign clicked true to not null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.clicked',
+                            label: 'Campaign clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ['true']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.clicked',
+                            label: 'Campaign clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'is_not',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform campaign clicked false to null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.clicked',
+                            label: 'Campaign clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ['false']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.clicked',
+                            label: 'Campaign clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'is',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform workflow send email clicked true to is not null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.clicked',
+                            label: 'Workflow send email clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: ['true']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.clicked',
+                            label: 'Workflow send email clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'is_not',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform workflow send email clicked false to is null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.clicked',
+                            label: 'Workflow send email clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: ['false']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.clicked',
+                            label: 'Workflow send email clicked',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'is',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform campaign opened true to not null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.opened',
+                            label: 'Campaign opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ['true']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.opened',
+                            label: 'Campaign opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'is_not',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform campaign opened false to null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.opened',
+                            label: 'Campaign opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'equal',
+                            value: ['false']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'campaign.opened',
+                            label: 'Campaign opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'Campaign',
+                            entity_ui: 'Campaign',
+                            operator: 'is',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform workflow send email opened true to is not null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.opened',
+                            label: 'Workflow send email opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: ['true']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.opened',
+                            label: 'Workflow send email opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'is_not',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform workflow send email opened false to is null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.opened',
+                            label: 'Workflow send email opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: ['false']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.send_email.opened',
+                            label: 'Workflow send email opened',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'is',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform workflow entered is true to is not null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: ['true']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'is_not',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform workflow entered is false to is null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: ['false']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'is',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should not transform workflow entered if value not array', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: 'false'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'workflow.entered',
+                            label: 'Workflow entered',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'workflow',
+                            entity_ui: 'Workflow',
+                            operator: 'equal',
+                            value: 'false'
                         }
                     ]
                 }
