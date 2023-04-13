@@ -2198,4 +2198,141 @@ describe('transformer', () => {
 
         return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
     });
+
+    // NEW
+
+    it('should transform tag automated is true to is not null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'tag.automated',
+                            label: 'Automated',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'tag',
+                            entity_ui: 'Tag',
+                            operator: 'equal',
+                            value: ['true']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'tag.automated',
+                            label: 'Automated',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'tag',
+                            entity_ui: 'Tag',
+                            operator: 'is_not',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should transform tag automated is false to is null', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'tag.automated',
+                            label: 'Automated',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'tag',
+                            entity_ui: 'Tag',
+                            operator: 'equal',
+                            value: ['false']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'tag.automated',
+                            label: 'Automated',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'tag',
+                            entity_ui: 'Tag',
+                            operator: 'is',
+                            value: ['null']
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
+
+    it('should not transform tag automated if value not array', () => {
+
+        const clientFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'tag.automated',
+                            label: 'Automated',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'tag',
+                            entity_ui: 'Tag',
+                            operator: 'equal',
+                            value: 'false'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        const newFilter = {
+            rules: [
+                {
+                    condition: 'AND',
+                    rules: [
+                        {
+                            id: 'tag.automated',
+                            label: 'Automated',
+                            type: 'boolean',
+                            input: 'binaryradio',
+                            entity: 'tag',
+                            entity_ui: 'Tag',
+                            operator: 'equal',
+                            value: 'false'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        return expect(Transformer.transform(clientFilter)).to.equal(newFilter);
+    });
 });
