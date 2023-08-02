@@ -1,6 +1,6 @@
 {
   "name": "@salesflare/optimus",
-  "version": "7.2.6",
+  "version": "7.2.7",
   "description": "Transformer for Salesflare filter rules",
   "main": "lib/index.js",
   "scripts": {
